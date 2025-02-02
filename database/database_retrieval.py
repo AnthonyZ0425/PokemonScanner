@@ -2,10 +2,6 @@ import sqlite3
 from ..key import API_KEY, DB_PATH
 from pokemontcgsdk import RestClient, Card
 
-RestClient.configure(api_key=API_KEY)
-
-connect = sqlite3.connect(DB_PATH)
-cursor = connect.cursor()
 
 # Make a GET request to fetch data from the API
 def storePokemonData():
@@ -36,6 +32,13 @@ def storePokemonData():
   print(f"Total cards inserted: {total_cards}")
 
 try:
+  # Set API key
+  RestClient.configure(api_key=API_KEY)
+  
+  # Connect to the database
+  connect = sqlite3.connect(DB_PATH)
+  cursor = connect.cursor()
+
   storePokemonData()
 except Exception as e:
   print(f"An error occurred: {e}")
